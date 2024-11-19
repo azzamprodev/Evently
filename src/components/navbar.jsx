@@ -1,4 +1,4 @@
-import ThemeToggle from "./ThemeToggle";
+import ThemeToggle from "./theme-toggle";
 import { createClient } from "@/utils/supabase/server";
 import { signOut } from "@/app/auth/login/actions";
 import { Button } from "./ui/button";

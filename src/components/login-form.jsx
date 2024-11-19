@@ -122,7 +122,6 @@ export const LoginForm = () => {
                           placeholder="m@example.com"
                           type="email"
                           name="email"
-                          required
                         />
                       </FormControl>
                       <FormMessage>

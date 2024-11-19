@@ -24,7 +24,6 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar />
             <div className="flex-grow flex flex-col">{children}</div>
           </ThemeProvider>
         </main>
