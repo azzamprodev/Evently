@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import { ThemeProvider } from "@/components/ui/theme-provider";
-import { Navbar } from "@/components/Navbar";
 
 export const metadata = {
   title: "Create Next App",

@@ -1,6 +1,19 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 
+// List of public routes
+const PUBLIC_ROUTES = [
+  "/",
+  "/auth/login",
+  "/auth/confirm",
+  "/auth/callback",
+  "/events",
+];
+
+// Helper function to check if a route is public
+const isPublicRoute = (path) =>
+  PUBLIC_ROUTES.includes(path) || path.startsWith("/events");
+
 export async function updateSession(request) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -37,13 +50,7 @@ export async function updateSession(request) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith("/login") &&
-    !request.nextUrl.pathname.startsWith("/auth") &&
-    request.nextUrl.pathname !== "/"
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
+  if (!user && !isPublicRoute(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
     return NextResponse.redirect(url);
