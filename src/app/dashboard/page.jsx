@@ -8,10 +8,6 @@ export default async function page() {
     .from("events")
     .select(`*, profiles(full_name)`);
 
-  if (events) {
-    console.log(events);
-  }
-
   return (
     <>
       <Navbar />

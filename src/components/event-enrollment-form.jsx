@@ -45,6 +45,7 @@ export const EnrollmentForm = ({ eventId, event }) => {
 
       if (response.success) {
         setSuccess(true);
+        form.reset();
         jsConfetti.addConfetti();
       } else {
         setError(response.message);
