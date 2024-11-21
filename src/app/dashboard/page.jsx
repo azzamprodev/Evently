@@ -1,14 +1,22 @@
 import { Navbar } from "@/components/navbar";
+import { EventList } from "@/components/events-list";
+import { createClient } from "@/utils/supabase/server";
 
-export default function page() {
+export default async function page() {
+  const supabase = await createClient();
+  const { data: events } = await supabase
+    .from("events")
+    .select(`*, profiles(full_name)`);
+
+  if (events) {
+    console.log(events);
+  }
+
   return (
     <>
       <Navbar />
-      <div className="flex-grow flex items-center justify-center">
-        <div className="flex flex-col items-center justify-center gap-2">
-          <h1 className="text-4xl">Dashboard</h1>
-          <p className="text-sm text-foreground">This is a protected Route</p>
-        </div>
+      <div className="flex-grow flex flex-col items-center justify-center">
+        <EventList events={events} />
       </div>
     </>
   );

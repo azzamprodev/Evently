@@ -75,7 +75,7 @@ export const EnrollmentForm = ({ eventId, event }) => {
                           {...field}
                           name="firstName"
                           placeholder="First Name"
-                          className="w-full text-sm"
+                          className="text-sm"
                         />
                       </FormControl>
                       <FormMessage>
@@ -93,7 +93,7 @@ export const EnrollmentForm = ({ eventId, event }) => {
                           {...field}
                           name="lastName"
                           placeholder="Last Name"
-                          className="w-full text-sm"
+                          className="text-sm"
                         />
                       </FormControl>
                       <FormMessage>

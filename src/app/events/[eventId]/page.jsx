@@ -17,8 +17,6 @@ export default async function page({ params }) {
 
   const event = data[0];
 
-  console.log(event.profiles.full_name);
-
   return (
     <>
       <div className="p-2 flex justify-end">
