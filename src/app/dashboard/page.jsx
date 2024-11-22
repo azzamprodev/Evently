@@ -8,6 +8,14 @@ export default async function page() {
     .from("events")
     .select(`*, profiles(full_name)`);
 
+  if (!events) {
+    return (
+      <div>
+        <h1>Loading</h1>
+      </div>
+    );
+  }
+
   return (
     <>
       <Navbar />

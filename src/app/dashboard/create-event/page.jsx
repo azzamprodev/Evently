@@ -6,7 +6,7 @@ export default function page() {
   return (
     <>
       <Navbar />
-      <BackButton content={"Back to Dashboard"} />
+      <BackButton content={"Back to Dashboard"} url={"/dashboard"} />
       <div className="flex-grow flex flex-col justify-center">
         <CreateEventCard />
       </div>

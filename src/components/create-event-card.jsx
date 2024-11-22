@@ -54,6 +54,8 @@ export const CreateEventCard = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [createdEventId, setCreatedEventId] = useState(null);
+  const [jsConfetti, setJsConfetti] = useState(null);
+
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -64,6 +66,15 @@ export const CreateEventCard = () => {
       location: "",
     },
   });
+
+  useEffect(() => {
+    // Ensure JSConfetti is only initialized on the client
+    if (typeof window !== "undefined") {
+      import("js-confetti").then((module) => {
+        setJsConfetti(new module.default());
+      });
+    }
+  }, []);
 
   const handleSubmit = async (data) => {
     setLoading(true);

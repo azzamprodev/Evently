@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata = {
   title: "Create Next App",
@@ -19,11 +20,12 @@ export default function RootLayout({ children }) {
         <main className="h-full flex flex-col">
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
             <div className="flex-grow flex flex-col">{children}</div>
+            <Toaster />
           </ThemeProvider>
         </main>
       </body>

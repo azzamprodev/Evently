@@ -21,9 +21,11 @@ import {
   DrawerTitle,
 } from "./ui/drawer";
 import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
 
 export const EventList = ({ events }) => {
   const router = useRouter();
+  const { toast } = useToast();
   const [showDeleteDrawer, setShowDeleteDrawer] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [deletingEvent, setDeletingEvent] = useState(false);
@@ -46,9 +48,15 @@ export const EventList = ({ events }) => {
       setDeletingEvent(true);
       await deleteEvent(selectedEvent.id);
       setShowDeleteDrawer(false);
-      console.log("Event deleted successfully");
+      toast({
+        title: "Event deleted successfully",
+      });
     } catch (error) {
-      console.error("Error deleting event:", error);
+      toast({
+        title: "Error deleting event",
+        description: error.message,
+        variant: "destructive",
+      });
     } finally {
       setDeletingEvent(false);
     }
@@ -98,11 +106,16 @@ export const EventList = ({ events }) => {
             </Card>
           ))}
         </div>
-        <Link href={`/dashboard/create-event`}>
-          <Button variant="secondary" className="w-full py-6">
-            Create Event
-          </Button>
-        </Link>
+
+        <Button
+          variant="secondary"
+          className="w-full py-6"
+          onClick={() => {
+            router.push("/dashboard/create-event");
+          }}
+        >
+          Create Event
+        </Button>
       </div>
 
       <Drawer open={showDeleteDrawer} onOpenChange={setShowDeleteDrawer}>

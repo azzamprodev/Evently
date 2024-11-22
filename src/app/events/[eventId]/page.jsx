@@ -2,6 +2,7 @@ import { EventOverview } from "@/components/event-overview";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import ThemeToggle from "@/components/theme-toggle";
+import { BackButton } from "@/components/back-button";
 
 export default async function page({ params }) {
   const { eventId } = await params;
@@ -17,9 +18,23 @@ export default async function page({ params }) {
 
   const event = data[0];
 
+  const {
+    data: {
+      user: { id: userId },
+    },
+  } = await supabase.auth.getUser();
+
+  console.log(userId);
+  console.log(event.organizer_id);
+
   return (
     <>
-      <div className="p-2 flex justify-end">
+      <div className="flex justify-between items-center container mx-auto p-4">
+        {userId === event.organizer_id ? (
+          <BackButton content="Back to dashboard" url={"/dashboard"} />
+        ) : (
+          ""
+        )}
         <ThemeToggle />
       </div>
       <div className="flex-grow flex flex-col justify-center">

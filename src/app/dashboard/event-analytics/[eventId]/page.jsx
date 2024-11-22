@@ -33,7 +33,7 @@ export default async function page({ params }) {
   return (
     <>
       <Navbar />
-      <BackButton content={"Back to Dashboard"} />
+      <BackButton content={"Back to Dashboard"} url={"/dashboard"} />
       <div className="flex-grow flex flex-col items-center justify-center">
         <EventAnalytics event={event} attendees={attendees} />
       </div>
