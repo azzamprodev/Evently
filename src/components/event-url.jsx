@@ -36,7 +36,7 @@ export const EventUrl = ({ eventId }) => {
 
   return (
     <div className="w-full">
-      <Label>Event URL</Label>
+      <Label>Share URL</Label>
       <div className="flex gap-1">
         <Input
           value={`http://localhost:3000/events/${eventId}`}

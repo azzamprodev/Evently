@@ -20,13 +20,20 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "./ui/drawer";
-import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import { CreateEventCard } from "./create-event-card";
 
 export const EventList = ({ events }) => {
   const router = useRouter();
   const { toast } = useToast();
   const [showDeleteDrawer, setShowDeleteDrawer] = useState(false);
+  const [showCreateDrawer, setShowCreateDrawer] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [deletingEvent, setDeletingEvent] = useState(false);
 
@@ -62,62 +69,84 @@ export const EventList = ({ events }) => {
     }
   };
 
+  const handleCreateEventClick = () => {
+    setShowCreateDrawer(true);
+  };
+
   return (
     <>
       <div className="py-10 flex flex-col gap-4">
-        <div
-          className={`grid grid-cols-1 gap-3 ${
-            events.length > 1 ? "md:grid-cols-2" : ""
-          }`}
-        >
-          {events.map((event) => (
-            <Card key={event.id} className="w-[45vh] md:w-[40vh] lg:w-[45vh]">
-              <CardHeader>
-                <CardTitle>
-                  <Button
-                    variant="link"
-                    className="text-xl text-foreground"
-                    onClick={() => handleEventLinkClick(event)}
-                  >
-                    {event.event_title}
-                  </Button>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <EventDetails event={event} />
-              </CardContent>
-              <CardFooter>
-                <div className="w-full flex gap-1">
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => handleDetailsClick(event)}
-                  >
-                    Analytics
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => handleDeleteClick(event)}
-                  >
-                    <Trash2 />
-                  </Button>
-                </div>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-
+        {events.length === 0 ? (
+          <div className="flex flex-col justify-center items-center gap-1">
+            <h1 className="text-2xl text-center">
+              No events <span className="bg-primary p-1 rounded-sm">Found</span>{" "}
+            </h1>
+            <p>Create an event to get started</p>
+          </div>
+        ) : (
+          <div
+            className={`grid grid-cols-1 gap-3 ${
+              events.length > 1 ? "md:grid-cols-2" : ""
+            }`}
+          >
+            {events.map((event) => (
+              <Card key={event.id} className="w-[45vh] md:w-[42vh] lg:w-[45vh]">
+                <CardHeader>
+                  <CardTitle>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="link"
+                            className="text-2xl text-foreground"
+                            onClick={() => handleEventLinkClick(event)}
+                          >
+                            {event.event_title}
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent className="bg-black">
+                          <p>Visit Event Landing page</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <EventDetails event={event} />
+                </CardContent>
+                <CardFooter>
+                  <div className="w-full flex gap-1">
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => handleDetailsClick(event)}
+                    >
+                      Analytics
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => handleDeleteClick(event)}
+                    >
+                      <Trash2 />
+                    </Button>
+                  </div>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        )}
         <Button
           variant="secondary"
           className="w-full py-6"
           onClick={() => {
-            router.push("/dashboard/create-event");
+            handleCreateEventClick();
           }}
         >
           Create Event
         </Button>
       </div>
 
+      {/* Deleting Event Drawer */}
       <Drawer open={showDeleteDrawer} onOpenChange={setShowDeleteDrawer}>
         <DrawerContent className="flex items-center justify-center py-4">
           <div className="container max-w-md">
@@ -143,6 +172,18 @@ export const EventList = ({ events }) => {
             </DrawerFooter>
           </div>
         </DrawerContent>
+      </Drawer>
+
+      {/* Create Event Drawer */}
+      <Drawer>
+        <Drawer open={showCreateDrawer} onOpenChange={setShowCreateDrawer}>
+          <DrawerContent className="flex justify-center items-center">
+            <DrawerTitle></DrawerTitle>
+            <div className="container max-w-md py-8">
+              <CreateEventCard />
+            </div>
+          </DrawerContent>
+        </Drawer>
       </Drawer>
     </>
   );

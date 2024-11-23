@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { Navbar } from "@/components/navbar";
+import { BackButton } from "@/components/back-button";
 
 export default function page() {
   return (
@@ -34,6 +35,7 @@ export default function page() {
               <span>Protected routes</span>
             </li>
           </ul>
+          {/* Change the Link component into a router.push */}
           <Link href={"/dashboard"}>
             <Button className="px-20">Get Started</Button>
           </Link>

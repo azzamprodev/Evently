@@ -16,9 +16,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { EventUrl } from "./event-url";
+import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 export const EventAnalytics = ({ event, attendees }) => {
+  const router = useRouter();
+  const handleEventLinkClick = (event) => {
+    router.push(`/events/${event.id}`);
+  };
+
   return (
     <>
       <div className="w-[45vh] md:w-[60vh] flex flex-col gap-4">
@@ -28,7 +41,22 @@ export const EventAnalytics = ({ event, attendees }) => {
         <Card>
           <CardHeader>
             <CardTitle>
-              <h1 className="text-2xl">{event.event_title}</h1>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="link"
+                      className="text-2xl text-foreground"
+                      onClick={() => handleEventLinkClick(event)}
+                    >
+                      {event.event_title}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-black">
+                    <p>Visit Event Landing page</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </CardTitle>
           </CardHeader>
           <CardContent>

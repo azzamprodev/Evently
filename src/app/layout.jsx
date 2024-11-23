@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
         <main className="h-full flex flex-col">
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >

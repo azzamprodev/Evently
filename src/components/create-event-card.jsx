@@ -7,9 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import * as z from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -18,13 +15,18 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Calendar } from "./ui/calendar";
+import { format } from "date-fns";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
-import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { Loader2, CalendarIcon } from "lucide-react";
+import { useState, useEffect } from "react";
 import { createEvent } from "@/app/dashboard/actions";
-import JSConfetti from "js-confetti";
 import { EventUrl } from "./event-url";
 
 const formSchema = z.object({
@@ -38,9 +40,7 @@ const formSchema = z.object({
     .min(2, { message: "Description must be at least 2 characters long." })
     .max(200, { message: "Description must not exceed 200 characters." }),
 
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
-    message: "Date must be in the format YYYY-MM-DD (e.g., 2024-12-25).",
-  }),
+  date: z.date(),
 
   location: z
     .string()
@@ -49,13 +49,11 @@ const formSchema = z.object({
 });
 
 export const CreateEventCard = () => {
-  const jsConfetti = new JSConfetti();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [createdEventId, setCreatedEventId] = useState(null);
   const [jsConfetti, setJsConfetti] = useState(null);
-
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -69,6 +67,7 @@ export const CreateEventCard = () => {
 
   useEffect(() => {
     // Ensure JSConfetti is only initialized on the client
+    // ChatGPT code
     if (typeof window !== "undefined") {
       import("js-confetti").then((module) => {
         setJsConfetti(new module.default());
@@ -79,6 +78,7 @@ export const CreateEventCard = () => {
   const handleSubmit = async (data) => {
     setLoading(true);
     setError("");
+    console.log(data.date);
     try {
       const response = await createEvent(data);
 
@@ -100,16 +100,13 @@ export const CreateEventCard = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center mb-10">
-        <h1 className="text-4xl font-bold">Create Event</h1>
-      </div>
       <div className="container max-w-lg mx-auto px-4">
         <Card>
           {!success ? (
             <div>
               <CardHeader>
                 <CardTitle>
-                  <h1 className="text-2xl">Event Details</h1>
+                  <h1 className="text-2xl">Create Event</h1>
                 </CardTitle>
                 <CardDescription>
                   <p>Create an event with all of the needed details</p>
@@ -120,6 +117,7 @@ export const CreateEventCard = () => {
                   <form onSubmit={form.handleSubmit(handleSubmit)}>
                     <div className="flex flex-col gap-3">
                       <div className="w-full flex flex-col gap-2">
+                        {/* Title Field */}
                         <FormField
                           name="title"
                           render={({ field }) => (
@@ -139,6 +137,7 @@ export const CreateEventCard = () => {
                             </FormItem>
                           )}
                         />
+                        {/* Description Field */}
                         <FormField
                           name="description"
                           render={({ field }) => (
@@ -159,11 +158,13 @@ export const CreateEventCard = () => {
                           )}
                         />
                       </div>
-                      <div className="w-full flex gap-1">
+                      {/* Location and date container */}
+                      <div className="w-full flex gap-1 items-start">
+                        {/* Location Field */}
                         <FormField
                           name="location"
                           render={({ field }) => (
-                            <FormItem className="w-full">
+                            <FormItem className="w-1/2">
                               <FormLabel>Location</FormLabel>
                               <FormControl>
                                 <Input
@@ -179,22 +180,41 @@ export const CreateEventCard = () => {
                             </FormItem>
                           )}
                         />
+                        {/* Date Field */}
                         <FormField
                           name="date"
                           render={({ field }) => (
-                            <FormItem className="w-full">
+                            <FormItem className="w-1/2">
                               <FormLabel>Date</FormLabel>
-                              <FormControl>
-                                <Input
-                                  {...field}
-                                  name="date"
-                                  placeholder="YYYY-MM-DD"
-                                  className="text-sm"
-                                />
-                              </FormControl>
-                              <FormMessage>
-                                {form.formState.errors.firstName?.message}
-                              </FormMessage>
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      className="w-full"
+                                    >
+                                      {field.value ? (
+                                        format(field.value, "PPP")
+                                      ) : (
+                                        <span>Pick a date</span>
+                                      )}
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent>
+                                  <Calendar
+                                    mode="single"
+                                    selected={field.value}
+                                    onSelect={field.onChange}
+                                    disabled={(date) => {
+                                      const today = new Date();
+                                      today.setHours(0, 0, 0, 0);
+                                      return date < today;
+                                    }}
+                                    initialFocus
+                                  />
+                                </PopoverContent>
+                              </Popover>
                             </FormItem>
                           )}
                         />

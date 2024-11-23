@@ -42,6 +42,8 @@ export async function createEvent(formData) {
 
   const lastCreatedEventId = lastCreatedEvent[0].id;
 
+  revalidatePath("/dashboard");
+
   return { success: true, eventId: lastCreatedEventId };
 }
 
