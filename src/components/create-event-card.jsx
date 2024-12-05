@@ -100,7 +100,7 @@ export const CreateEventCard = () => {
 
   return (
     <>
-      <div className="container max-w-lg mx-auto px-4">
+      <div className="container mx-auto max-w-lg px-4">
         <Card>
           {!success ? (
             <div>
@@ -116,7 +116,7 @@ export const CreateEventCard = () => {
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(handleSubmit)}>
                     <div className="flex flex-col gap-3">
-                      <div className="w-full flex flex-col gap-2">
+                      <div className="flex w-full flex-col gap-2">
                         {/* Title Field */}
                         <FormField
                           name="title"
@@ -159,7 +159,7 @@ export const CreateEventCard = () => {
                         />
                       </div>
                       {/* Location and date container */}
-                      <div className="w-full flex gap-1 items-start">
+                      <div className="flex w-full items-start gap-1">
                         {/* Location Field */}
                         <FormField
                           name="location"

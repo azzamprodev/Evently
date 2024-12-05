@@ -75,11 +75,11 @@ export const EventList = ({ events }) => {
 
   return (
     <>
-      <div className="py-10 flex flex-col gap-4">
+      <div className="flex flex-col gap-4 py-10">
         {events.length === 0 ? (
-          <div className="flex flex-col justify-center items-center gap-1">
-            <h1 className="text-2xl text-center">
-              No events <span className="bg-primary p-1 rounded-sm">Found</span>{" "}
+          <div className="flex flex-col items-center justify-center gap-1">
+            <h1 className="text-center text-2xl">
+              No events <span className="rounded-sm bg-primary p-1">Found</span>{" "}
             </h1>
             <p>Create an event to get started</p>
           </div>
@@ -115,7 +115,7 @@ export const EventList = ({ events }) => {
                   <EventDetails event={event} />
                 </CardContent>
                 <CardFooter>
-                  <div className="w-full flex gap-1">
+                  <div className="flex w-full gap-1">
                     <Button
                       variant="outline"
                       className="w-full"
@@ -177,7 +177,7 @@ export const EventList = ({ events }) => {
       {/* Create Event Drawer */}
       <Drawer>
         <Drawer open={showCreateDrawer} onOpenChange={setShowCreateDrawer}>
-          <DrawerContent className="flex justify-center items-center">
+          <DrawerContent className="flex items-center justify-center">
             <DrawerTitle></DrawerTitle>
             <div className="container max-w-md py-8">
               <CreateEventCard />

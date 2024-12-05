@@ -14,7 +14,7 @@ export const Navbar = async () => {
   return (
     <nav>
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex items-center justify-between py-4">
           <Link href="/">
             <div className="text-2xl font-bold">Evently</div>
           </Link>

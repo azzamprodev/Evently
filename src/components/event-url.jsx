@@ -40,7 +40,7 @@ export const EventUrl = ({ eventId }) => {
       <div className="flex gap-1">
         <Input
           value={`http://localhost:3000/events/${eventId}`}
-          className="text-sm w-full"
+          className="w-full py-5 text-sm"
           disabled={true}
         />
         <TooltipProvider>
@@ -52,7 +52,7 @@ export const EventUrl = ({ eventId }) => {
                 setTooltipOpen(true);
               }}
             >
-              <Button variant="outline" onClick={handleCopy}>
+              <Button variant="outline" onClick={handleCopy} className="py-5">
                 <Copy />
               </Button>
             </TooltipTrigger>

@@ -1,5 +1,6 @@
 "use server";
 import { createClient } from "@/utils/supabase/server";
+import { set } from "date-fns";
 import { revalidatePath } from "next/cache";
 
 export async function createEvent(formData) {
@@ -57,4 +58,21 @@ export async function deleteEvent(eventId) {
   }
 
   revalidatePath("/dashboard");
+}
+
+export async function deleteAttendant(attendantId) {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("attendees")
+    .delete()
+    .eq("id", attendantId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/dashboard/event-analytics/[eventId]");
+
+  return { success: true };
 }

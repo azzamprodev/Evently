@@ -11,7 +11,7 @@ export const BackButton = ({ content, url }) => {
   return (
     <div className="container mx-auto pt-2">
       <button
-        className="text-sm hover:underline underline-offset-4 decoration-foreground ml-2"
+        className="ml-2 text-sm decoration-foreground underline-offset-4 hover:underline"
         onClick={() => handleBackButtonClick()}
       >
         <div className="flex items-center justify-center text-foreground">

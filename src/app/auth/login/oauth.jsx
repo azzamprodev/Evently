@@ -17,7 +17,7 @@ const providers = [
 
 export default function OAuthButtons() {
   return (
-    <div className="flex gap-2 items-center justify-center w-full">
+    <div className="flex w-full items-center justify-center gap-2">
       {providers.map((provider) => (
         <Button
           key={provider.name}

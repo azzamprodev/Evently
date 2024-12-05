@@ -97,13 +97,13 @@ export const LoginForm = () => {
 
           <CardContent>
             {/* OAuth */}
-            <div className="flex flex-col items-center justify-center w-full gap-2">
+            <div className="flex w-full flex-col items-center justify-center gap-2">
               <OAuthButtons />
             </div>
-            <div className="flex items-center justify-center my-6">
-              <hr className="border w-full" />
+            <div className="my-6 flex items-center justify-center">
+              <hr className="w-full border" />
               <span className="mx-4 text-gray-700">OR</span>
-              <hr className="border w-full" />
+              <hr className="w-full border" />
             </div>
             <Form {...form}>
               <form
@@ -118,7 +118,7 @@ export const LoginForm = () => {
                       <FormControl>
                         <Input
                           {...field}
-                          className="text-sm w-full"
+                          className="w-full text-sm"
                           placeholder="m@example.com"
                           type="email"
                           name="email"

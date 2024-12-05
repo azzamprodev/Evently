@@ -17,14 +17,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.className} h-full`}>
-        <main className="h-full flex flex-col">
+        <main className="flex h-full flex-col">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-            <div className="flex-grow flex flex-col">{children}</div>
+            <div className="flex flex-grow flex-col">{children}</div>
             <Toaster />
           </ThemeProvider>
         </main>

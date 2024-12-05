@@ -19,7 +19,7 @@ export default async function page() {
   return (
     <>
       <Navbar />
-      <div className="flex-grow flex flex-col items-center justify-center">
+      <div className="flex flex-grow flex-col items-center justify-center">
         <EventList events={events} />
       </div>
     </>

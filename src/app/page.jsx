@@ -8,8 +8,8 @@ export default function page() {
   return (
     <>
       <Navbar />
-      <div className="flex-grow flex items-center justify-center">
-        <div className="flex gap-8 flex-col items-center justify-center text-center">
+      <div className="flex flex-grow items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-8 text-center">
           <h1 className="text-2xl font-bold">
             Full auth system with supabase 🚀
           </h1>

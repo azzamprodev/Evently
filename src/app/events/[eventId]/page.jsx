@@ -29,7 +29,7 @@ export default async function page({ params }) {
 
   return (
     <>
-      <div className="flex justify-between items-center container mx-auto p-4">
+      <div className="container mx-auto flex items-center justify-between p-4">
         {userId === event.organizer_id ? (
           <BackButton content="Back to dashboard" url={"/dashboard"} />
         ) : (
@@ -37,7 +37,7 @@ export default async function page({ params }) {
         )}
         <ThemeToggle />
       </div>
-      <div className="flex-grow flex flex-col justify-center">
+      <div className="flex flex-grow flex-col justify-center">
         <EventOverview event={event} eventId={eventId} />
       </div>
     </>

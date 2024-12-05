@@ -20,7 +20,7 @@ export async function enrollAttendee(formData, eventId) {
   ]);
 
   if (error) {
-    return { success: false, message: error.message };
+    return { success: false, message: "Email already enrolled" };
   }
 
   return { success: true };

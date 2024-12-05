@@ -13,12 +13,12 @@ export const EventOverview = ({ event, eventId }) => {
       {/* Containers Wrapper */}
       <div className="flex flex-col gap-8 py-6">
         {/* Container */}
-        <div className="flex flex-col items-center justify-center text-center gap-6">
+        <div className="flex flex-col items-center justify-center gap-6 text-center">
           <h1 className="text-5xl font-bold">{event.event_title}</h1>
           <EventDetails event={event} />
         </div>
         {/* Container */}
-        <div className="container max-w-xl mx-auto px-4">
+        <div className="container mx-auto max-w-xl px-4">
           <Card>
             <CardHeader>
               <h1 className="text-2xl">Ticket</h1>
@@ -42,7 +42,7 @@ export const EventOverview = ({ event, eventId }) => {
             </CardFooter>
           </Card>
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <p>
             powered by{" "}
             <Link href={"/"} className="text-primary">

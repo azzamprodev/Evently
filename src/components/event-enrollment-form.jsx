@@ -60,13 +60,13 @@ export const EnrollmentForm = ({ eventId, event }) => {
   return (
     <>
       {!success ? (
-        <div className="flex flex-col w-full gap-2">
+        <div className="flex w-full flex-col gap-2">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleSubmit)}
-              className="w-full flex flex-col gap-3"
+              className="flex w-full flex-col gap-3"
             >
-              <div className="w-full flex gap-1">
+              <div className="flex w-full gap-1">
                 <FormField
                   name="firstName"
                   render={({ field }) => (
@@ -150,7 +150,10 @@ export const EnrollmentForm = ({ eventId, event }) => {
             <CardFooter>
               <Button
                 variant="outline"
-                onClick={() => setSuccess(false)}
+                onClick={() => {
+                  setSuccess(false);
+                  form.reset();
+                }}
                 className="w-full"
               >
                 Enroll Another Attendee
