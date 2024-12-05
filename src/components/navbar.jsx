@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import { signOut } from "@/app/auth/login/actions";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { UserButton } from "./user-button";
 
 export const Navbar = async () => {
   const supabase = await createClient();
@@ -21,9 +22,7 @@ export const Navbar = async () => {
           <div className="flex items-center justify-center gap-2">
             <ThemeToggle />
             {user ? (
-              <form action={signOut}>
-                <Button>Sign out</Button>
-              </form>
+              <UserButton user={user} />
             ) : (
               <div>
                 <Link href="/auth/login">
